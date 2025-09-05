@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Teacher's Day</title>
+
+  <!-- Bootstrap & Animate -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Fireworks Canvas */
+    #fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Landing Section */
+    #start-section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      font-family: 'Dancing Script', cursive;
+    }
+    #start-section h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ffecd2, #fcb69f, #ff9a9e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 20px #fff; }
+      to { text-shadow: 0 0 40px #ff4081; }
+    }
+    #showTeachersBtn {
+      margin-top: 30px;
+      padding: 14px 40px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 40px;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      transition: 0.3s;
+      font-family: 'Roboto', sans-serif;
+    }
+    #showTeachersBtn:hover {
+      transform: scale(1.15) rotate(-2deg);
+      box-shadow: 0 15px 40px rgba(255,105,180,0.6);
+    }
+
+    /* Teachers Section */
+    #teachers-section {
+      display: none;
+      padding: 70px 20px 120px;
+      background: linear-gradient(270deg, #fbc2eb, #a6c1ee, #fbc2eb);
+      background-size: 600% 600%;
+      animation: gradientBG 10s ease infinite;
+      min-height: 100vh;
+      position: relative;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #teachers-section h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 50px;
+      font-weight: bold;
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(90deg, #ff6ec4, #7873f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glowText 2s infinite alternate;
+    }
+    @keyframes glowText {
+      from { text-shadow: 0 0 10px #fff; }
+      to { text-shadow: 0 0 25px #ff4081; }
+    }
+
+    .teacher-card {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 15px;
+      backdrop-filter: blur(12px);
+      border: 2px solid rgba(255,255,255,0.3);
+      text-align: center;
+      transition: transform 0.6s, box-shadow 0.6s;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Roboto', sans-serif;
+    }
+    .teacher-card:hover {
+      transform: translateY(-15px) rotateY(10deg) scale(1.08);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 20px #ff4081;
+    }
+
+    .teacher-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #fff;
+      margin-bottom: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .teacher-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      font-family: 'Dancing Script', cursive;
+    }
+    .teacher-wish {
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 500;
+      animation: heartbeat 1.5s infinite;
+      text-shadow: 0 0 8px rgba(0,0,0,0.6);
+      font-family: 'Roboto', sans-serif;
+    }
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      font-family: 'Roboto', sans-serif;
+      animation: footerGlow 2s infinite alternate;
+    }
+    @keyframes footerGlow {
+      from { text-shadow: 0 0 10px #ff6ec4; }
+      to { text-shadow: 0 0 20px #00f2fe; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fireworks Canvas -->
+  <canvas id="fireworks"></canvas>
+
+  <!-- Start Section -->
+  <section id="start-section">
+    <h1 class="animate__animated animate__zoomIn">🌸 Happy Teacher's Day 🌸</h1>
+    <button id="showTeachersBtn">✨ See Our Teachers ✨</button>
+  </section>
+
+  <!-- Teachers Section -->
+  <section id="teachers-section">
+    <h2>Our Wonderful Teachers</h2>
+    <div class="container">
+      <div class="row justify-content-center">
+
+        <!-- Principal -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Mittal Ma'am.jpg" class="teacher-photo">
+          <div class="teacher-name">Mittal Ma'am</div>
+          <div class="teacher-wish" style="color:#ff80ab;">"Your vision and leadership light our path."</div>
+        </div>
+
+        <!-- HOD -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Neha Ma'am.jpg" class="teacher-photo">
+          <div class="teacher-name">Neha Ma'am</div>
+          <div class="teacher-wish" style="color:#00e5ff;">"Guiding us with wisdom and strength."</div>
+        </div>
+
+        <!-- Mentor 1 -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Jyotshna Ma'am.jpg" class="teacher-photo">
+          <div class="teacher-name">Jyotshna Ma'am</div>
+          <div class="teacher-wish" style="color:#76ff03;">"Your support inspires us every day."</div>
+        </div>
+
+        <!-- Mentor 2 -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Sidhhi Ma'am.jpg" class="teacher-photo">
+          <div class="teacher-name">Sidhhi Ma'am</div>
+          <div class="teacher-wish" style="color:#ffd740;">"You encourage us to dream big."</div>
+        </div>
+
+        <!-- Mentor 3 -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Charvi Ma'am.jpg" class="teacher-photo">
+          <div class="teacher-name">Charvi Ma'am</div>
+          <div class="teacher-wish" style="color:#ff5722;">"Thank you for making learning so enjoyable."</div>
+        </div>
+
+        <!-- Mentor 4 -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Danisha Ma'am.jpg" class="teacher-photo">
+          <div class="teacher-name">Danisha Ma'am</div>
+          <div class="teacher-wish" style="color:#8e24aa;">"Your kindness and patience inspire us all."</div>
+        </div>
+
+        <!-- Mentor 5 -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Shiv Sir.jpg" class="teacher-photo">
+          <div class="teacher-name">Shiv Sir</div>
+          <div class="teacher-wish" style="color:#03a9f4;">"You taught us discipline and dedication."</div>
+        </div>
+
+        <!-- Mentor 6 -->
+        <div class="col-md-3 teacher-card animate__animated animate__fadeInUp">
+          <img src="images/Tiya Ma'am.jpg" class="teacher-photo">
+          <div class="teacher-name">Tiya Ma'am</div>
+          <div class="teacher-wish" style="color:#4caf50;">"Your smile makes learning brighter every day."</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      🌟 Developed by <strong>Anish</strong> 🌟
+    </footer>
+  </section>
+
+  <script>
+    // Show teachers on button click
+    document.getElementById("showTeachersBtn").addEventListener("click", () => {
+      document.getElementById("start-section").style.display = "none";
+      document.getElementById("teachers-section").style.display = "block";
+    });
+
+    // Fireworks Script
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = Math.random() * 3 + 2;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = (Math.random() - 0.5) * 6;
+        this.life = 100;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life--;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function createFirework() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height / 2; // upper half
+      const colors = ["#ff1744", "#ff9100", "#00e676", "#2979ff", "#d500f9", "#ffff00"];
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, i) => {
+        p.update();
+        p.draw();
+        if (p.life <= 0) particles.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Firework every 10 seconds
+    setInterval(createFirework, 10000);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
