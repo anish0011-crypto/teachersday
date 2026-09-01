@@ -925,83 +925,224 @@ section {
     color: #e1bd69;
 }
 
-/* ================= MEMORIES ================= */
+/* ================= TEACHER SIGNATURES ================= */
 
 .memories-section {
-    background: #f3efe7;
+    background: linear-gradient(180deg, #f8f6f1 0%, #f3efe7 50%, #ebe6dc 100%);
+    position: relative;
+    overflow: hidden;
 }
 
-.memory-grid {
+.memories-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(212, 175, 85, .08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(40, 78, 139, .06) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.signature-grid {
     max-width: 1200px;
     margin: auto;
+    position: relative;
+    z-index: 2;
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
-.memory-item {
-    height: 270px;
-    overflow: hidden;
+.signature-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 22px;
+    text-align: center;
     position: relative;
-    border-radius: 8px;
     cursor: pointer;
+
+    border: 2px solid transparent;
+    background-image: linear-gradient(white, white),
+                      linear-gradient(135deg, #d4af55, #284e8b, #d4af55);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+
+    transition: all .4s cubic-bezier(.175, .885, .32, 1.275);
+    box-shadow: 0 4px 20px rgba(7, 20, 43, .06);
 }
 
-.memory-item.large {
-    grid-column: span 2;
+.signature-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(212, 175, 85, .15),
+                0 10px 25px rgba(7, 20, 43, .1);
 }
 
-.memory-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: .7s;
-}
-
-.memory-item:hover img {
-    transform: scale(1.1) rotate(1deg);
-}
-
-.memory-overlay {
+.signature-card::before {
+    content: '';
     position: absolute;
-    inset: 0;
-
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-
-    padding: 20px;
-
-    color: white;
-
-    background: linear-gradient(
-        transparent,
-        rgba(7, 20, 43, .85)
-    );
-
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    border: 1px solid rgba(212, 175, 85, .2);
+    border-radius: 10px;
+    pointer-events: none;
     opacity: 0;
     transition: .4s;
 }
 
-.memory-item:hover .memory-overlay {
+.signature-card:hover::before {
+    opacity: 1;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+}
+
+.signature-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(212, 175, 85, .2);
+    transition: .5s;
+}
+
+.signature-card:hover .signature-icon {
+    transform: rotate(-8deg) scale(1.1);
+    background: linear-gradient(135deg, #d4af55 0%, #e1bd69 100%);
+    box-shadow: 0 8px 25px rgba(212, 175, 85, .35);
+}
+
+.signature-icon::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px dashed rgba(212, 175, 85, .4);
+    opacity: 0;
+    transition: .5s;
+    animation: none;
+}
+
+.signature-card:hover .signature-icon::after {
+    opacity: 1;
+    animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.signature-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(40, 78, 139, .08);
+    color: #284e8b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    transition: .3s;
+}
+
+.signature-card:hover .signature-tag {
+    background: #284e8b;
+    color: white;
+}
+
+.signature-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    color: #071426;
+    font-weight: 700;
+    margin-bottom: 6px;
+    transition: .3s;
+}
+
+.signature-card:hover .signature-name {
+    color: #b8860b;
+}
+
+.signature-trait {
+    font-size: 12px;
+    color: #d4af55;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.signature-quote {
+    font-size: 13px;
+    color: #5a5a5a;
+    line-height: 1.6;
+    font-style: italic;
+    padding: 12px 10px;
+    border-top: 1px solid rgba(212, 175, 85, .2);
+    border-bottom: 1px solid rgba(212, 175, 85, .2);
+    margin: 0 6px;
+    position: relative;
+    transition: .3s;
+}
+
+.signature-card:hover .signature-quote {
+    color: #3a3a3a;
+    border-color: rgba(212, 175, 85, .5);
+}
+
+.signature-quote::before,
+.signature-quote::after {
+    content: '"';
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    color: #d4af55;
+    line-height: 0;
+    position: absolute;
+    opacity: .4;
+    transition: .3s;
+}
+
+.signature-card:hover .signature-quote::before,
+.signature-card:hover .signature-quote::after {
     opacity: 1;
 }
 
-.memory-overlay span {
-    background: #d4af55;
-    color: #071426;
-    padding: 6px 16px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    border-radius: 20px;
-    transform: translateY(20px);
-    transition: .4s;
+.signature-quote::before {
+    top: 10px;
+    left: 4px;
 }
 
-.memory-item:hover .memory-overlay span {
-    transform: translateY(0);
+.signature-quote::after {
+    bottom: -2px;
+    right: 4px;
+}
+
+.signature-bottom {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+}
+
+.signature-bottom i {
+    color: #d4af55;
+    font-size: 11px;
 }
 
 /* ================= FINAL ================= */
@@ -1360,16 +1501,15 @@ footer span {
 .about-grid > .about-card:nth-child(3) { transition-delay: .3s; }
 .about-grid > .about-card:nth-child(4) { transition-delay: .45s; }
 
-/* Teacher Cards - 9 cards */
+/* Teacher Cards - 8 cards */
 .teachers-grid > .teacher-card:nth-child(1) { transition-delay: .0s; }
-.teachers-grid > .teacher-card:nth-child(2) { transition-delay: .1s; }
-.teachers-grid > .teacher-card:nth-child(3) { transition-delay: .2s; }
-.teachers-grid > .teacher-card:nth-child(4) { transition-delay: .3s; }
-.teachers-grid > .teacher-card:nth-child(5) { transition-delay: .4s; }
-.teachers-grid > .teacher-card:nth-child(6) { transition-delay: .5s; }
-.teachers-grid > .teacher-card:nth-child(7) { transition-delay: .6s; }
-.teachers-grid > .teacher-card:nth-child(8) { transition-delay: .7s; }
-.teachers-grid > .teacher-card:nth-child(9) { transition-delay: .8s; }
+.teachers-grid > .teacher-card:nth-child(2) { transition-delay: .12s; }
+.teachers-grid > .teacher-card:nth-child(3) { transition-delay: .24s; }
+.teachers-grid > .teacher-card:nth-child(4) { transition-delay: .36s; }
+.teachers-grid > .teacher-card:nth-child(5) { transition-delay: .48s; }
+.teachers-grid > .teacher-card:nth-child(6) { transition-delay: .6s; }
+.teachers-grid > .teacher-card:nth-child(7) { transition-delay: .72s; }
+.teachers-grid > .teacher-card:nth-child(8) { transition-delay: .84s; }
 
 /* Counter Items - 4 items */
 .counters-grid > .counter-item:nth-child(1) { transition-delay: .0s; }
@@ -1377,16 +1517,15 @@ footer span {
 .counters-grid > .counter-item:nth-child(3) { transition-delay: .3s; }
 .counters-grid > .counter-item:nth-child(4) { transition-delay: .45s; }
 
-/* Memory Items - 9 items */
-.memory-grid > .memory-item:nth-child(1) { transition-delay: .0s; }
-.memory-grid > .memory-item:nth-child(2) { transition-delay: .1s; }
-.memory-grid > .memory-item:nth-child(3) { transition-delay: .2s; }
-.memory-grid > .memory-item:nth-child(4) { transition-delay: .3s; }
-.memory-grid > .memory-item:nth-child(5) { transition-delay: .4s; }
-.memory-grid > .memory-item:nth-child(6) { transition-delay: .5s; }
-.memory-grid > .memory-item:nth-child(7) { transition-delay: .6s; }
-.memory-grid > .memory-item:nth-child(8) { transition-delay: .7s; }
-.memory-grid > .memory-item:nth-child(9) { transition-delay: .8s; }
+/* Signature Cards - 8 items */
+.signature-grid > .signature-card:nth-child(1) { transition-delay: .0s; }
+.signature-grid > .signature-card:nth-child(2) { transition-delay: .1s; }
+.signature-grid > .signature-card:nth-child(3) { transition-delay: .2s; }
+.signature-grid > .signature-card:nth-child(4) { transition-delay: .3s; }
+.signature-grid > .signature-card:nth-child(5) { transition-delay: .4s; }
+.signature-grid > .signature-card:nth-child(6) { transition-delay: .5s; }
+.signature-grid > .signature-card:nth-child(7) { transition-delay: .6s; }
+.signature-grid > .signature-card:nth-child(8) { transition-delay: .7s; }
 
 @keyframes heroAnimation {
     from {
@@ -1443,7 +1582,8 @@ footer span {
 @media (max-width: 1100px) {
 
     .about-grid,
-    .teachers-grid {
+    .teachers-grid,
+    .signature-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -1487,20 +1627,26 @@ footer span {
 
     .about-grid,
     .teachers-grid,
-    .memory-grid {
+    .signature-grid {
         grid-template-columns: 1fr;
-    }
-
-    .memory-item.large {
-        grid-column: span 1;
     }
 
     .teacher-photo {
         height: 350px;
     }
 
-    .memory-item {
-        height: 250px;
+    .signature-card {
+        padding: 24px 18px;
+    }
+
+    .signature-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 30px;
+    }
+
+    .signature-name {
+        font-size: 20px;
     }
 
     .message-content p {
@@ -1774,7 +1920,7 @@ footer span {
             <div class="gold-divider"></div>
 
             <span class="section-description">
-                9 amazing teachers, infinite memories, and countless thank yous!
+                8 amazing teachers, infinite memories, and countless thank yous!
             </span>
 
         </div>
@@ -1789,7 +1935,7 @@ footer span {
 
                 <div class="teacher-photo">
                     <div class="teacher-emoji">👑</div>
-                    <img src="Mittal Ma'am.jpg" alt="Dr. Mittal Ma'am">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a592?w=600&q=80" alt="Dr. Mittal Ma'am">
                     <div class="photo-overlay"></div>
                 </div>
 
@@ -1832,7 +1978,7 @@ footer span {
 
                 <div class="teacher-photo">
                     <div class="teacher-emoji">🎯</div>
-                    <img src="Neha Ma'am.jpg" alt="Neha Ma'am">
+                    <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80" alt="Neha Ma'am">
                     <div class="photo-overlay"></div>
                 </div>
 
@@ -1874,7 +2020,7 @@ footer span {
 
                 <div class="teacher-photo">
                     <div class="teacher-emoji">💖</div>
-                    <img src="Jyotshna ma'am.jpg" alt="Jyotshna Ma'am">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Jyotshna Ma'am">
                     <div class="photo-overlay"></div>
                 </div>
 
@@ -1916,7 +2062,7 @@ footer span {
 
                 <div class="teacher-photo">
                     <div class="teacher-emoji">🗄️</div>
-                    <img src="Sidhhi Ma'am.jpg" alt="Sidhhi Ma'am">
+                    <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80" alt="Siddhi Ma'am">
                     <div class="photo-overlay"></div>
                 </div>
 
@@ -1924,23 +2070,23 @@ footer span {
 
                     <p class="teacher-number">04</p>
 
-                    <h3>Sidhhi Ma'am</h3>
+                    <h3>Siddhi Ma'am</h3>
 
                     <span class="teacher-post">Lecturer</span>
                     <span class="teacher-subject">DBMS - Database Queen</span>
 
                     <p class="short-message">
                         <i class="fa-solid fa-quote-left"></i>
-                        "SELECT * FROM respect WHERE teacher='Sidhhi';"
+                        "SELECT * FROM respect WHERE teacher='Siddhi';"
                         Our DBMS queries finally make sense!
                         <i class="fa-solid fa-quote-right"></i>
                     </p>
 
                     <button class="ripple-effect" onclick="openTribute(event,
-                        'Sidhhi Ma\'am',
+                        'Siddhi Ma\'am',
                         'Lecturer - DBMS',
-                        'Dear Sidhhi Ma\'am, you turned complex SQL queries and ER diagrams into our favorite topics! Your way of explaining joins, normalization and transactions made DBMS actually fun. Because of you, we don\'t panic when we see a table anymore!',
-                        'Funny Memo: Ma\'am, ab hum SELECT * FROM attendance se darr nahi lagta! Bas kabhi kabhi ROLLBACK karne ka mann karta hai when marks kam aayein 😂📊. You taught us that for every problem, there\'s a query — and for every query, there\'s Sidhhi Ma\'am!',
+                        'Dear Siddhi Ma\'am, you turned complex SQL queries and ER diagrams into our favorite topics! Your way of explaining joins, normalization and transactions made DBMS actually fun. Because of you, we don\'t panic when we see a table anymore!',
+                        'Funny Memo: Ma\'am, ab hum SELECT * FROM attendance se darr nahi lagta! Bas kabhi kabhi ROLLBACK karne ka mann karta hai when marks kam aayein 😂📊. You taught us that for every problem, there\'s a query — and for every query, there\'s Siddhi Ma\'am!',
                         '🗄️ 💻 📊'
                     )">
                         Read Our Tribute
@@ -1958,7 +2104,7 @@ footer span {
 
                 <div class="teacher-photo">
                     <div class="teacher-emoji">📖</div>
-                    <img src="Tiya Ma'am.jpg" alt="Tiya Ma'am">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Tiya Ma'am">
                     <div class="photo-overlay"></div>
                 </div>
 
@@ -2001,7 +2147,7 @@ footer span {
 
                 <div class="teacher-photo">
                     <div class="teacher-emoji">🔢</div>
-                    <img src="Shiv sir.jpg" alt="Shiv Sir">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Shiv Sir">
                     <div class="photo-overlay"></div>
                 </div>
 
@@ -2043,7 +2189,7 @@ footer span {
 
                 <div class="teacher-photo">
                     <div class="teacher-emoji">🖥️</div>
-                    <img src="Danisha Ma'am.jpg" alt="Danisha Ma'am">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80" alt="Danisha Ma'am">
                     <div class="photo-overlay"></div>
                 </div>
 
@@ -2122,49 +2268,6 @@ footer span {
 
             </div>
 
-
-            <!-- ===== TEACHER 9 - NIDHI MA'AM ===== -->
-
-            <div class="teacher-card gradient-border reveal rotate-reveal">
-
-                <div class="teacher-photo">
-                    <div class="teacher-emoji">🎨</div>
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Nidhi Ma'am">
-                    <div class="photo-overlay"></div>
-                </div>
-
-                <div class="teacher-content">
-
-                    <p class="teacher-number">09</p>
-
-                    <h3>Nidhi Ma'am</h3>
-
-                    <span class="teacher-post">Lecturer</span>
-                    <span class="teacher-subject">Web Design - The CSS Queen 👑</span>
-
-                    <p class="short-message">
-                        <i class="fa-solid fa-quote-left"></i>
-                        "display: flex; justify-content: learning;"
-                        Aapke bina web design toh humara
-                        `position: absolute; top: 0; left: -9999px;`!
-                        <i class="fa-solid fa-quote-right"></i>
-                    </p>
-
-                    <button class="ripple-effect" onclick="openTribute(event,
-                        'Nidhi Ma\'am',
-                        'Lecturer - Web Design',
-                        'Dear Nidhi Ma\'am, you taught us that a website is not just code — it\'s art! From HTML structure to beautiful CSS gradients, from flexbox layouts to responsive design — your creative teaching made Web Design our favorite subject. Because of you, we now see colors, typography and grids everywhere!',
-                        'Funny Memo: Ma\'am, jab bhi hum `!important` use karte hain, hume aapki yaad aati hai: "Beta, specificity badhao, !important mat bolo!" 😂🎨. Humara portfolio toh aapke lessons se bana hai — responsive hai, animated hai, sab kuch hai bas aapke jaisa creativity abhi baaki hai! Thank you for making `<div>` cool!',
-                        '🎨 💻 ✨'
-                    )">
-                        Read Our Tribute
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-
-                </div>
-
-            </div>
-
         </div>
 
     </section>
@@ -2200,88 +2303,146 @@ footer span {
     </section>
 
 
-    <!-- ================= MEMORIES ================= -->
+    <!-- ================= TEACHER SIGNATURES ================= -->
 
     <section class="memories-section">
 
         <div class="section-title reveal">
 
-            <p class="shimmer">MEMORIES WE CHERISH FOREVER</p>
+            <p class="shimmer">WHAT MAKES THEM TRULY ONE-OF-A-KIND</p>
 
             <h2>Beyond The Classroom</h2>
 
             <div class="gold-divider"></div>
 
             <span class="section-description">
-                Beautiful moments, smiles and memories
-                that will always stay with us.
+                Each teacher has their own signature style,
+                iconic catchphrases and unforgettable traits
+                that make them legends in our hearts.
             </span>
 
         </div>
 
 
-        <div class="memory-grid">
+        <div class="signature-grid">
 
-            <div class="memory-item large reveal">
-                <img src="Mittal Ma'am.jpg" alt="Mittal Ma'am">
-                <div class="memory-overlay">
-                    <span>DR. MITTAL MA'AM</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">👑</div>
+                <div class="signature-tag">THE QUEEN BEE</div>
+                <div class="signature-name">Dr. Mittal Ma'am</div>
+                <div class="signature-trait">The Attendance Guardian</div>
+                <div class="signature-quote">
+                    75% attendance se kam? Not on my watch!
+                    But uske baad, you're family.
+                </div>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: Warm smile + silent eye contact
                 </div>
             </div>
 
-            <div class="memory-item reveal">
-                <img src="Neha Ma'am.jpg" alt="Neha Ma'am">
-                <div class="memory-overlay">
-                    <span>NEHA MA'AM</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">🎯</div>
+                <div class="signature-tag">THE BOSS LADY</div>
+                <div class="signature-name">Neha Ma'am</div>
+                <div class="signature-trait">The Deadline Queen</div>
+                <div class="signature-quote">
+                    This is your LAST WARNING for submission!
+                    (...next class same dialogue 😂)
+                </div>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: Email pe "URGENT" + red flag
                 </div>
             </div>
 
-            <div class="memory-item reveal">
-                <img src="Jyotshna ma'am.jpg" alt="Jyotshna Ma'am">
-                <div class="memory-overlay">
-                    <span>JYOTSHNA MA'AM</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">💖</div>
+                <div class="signature-tag">THE CLASS MOM</div>
+                <div class="signature-name">Jyotshna Ma'am</div>
+                <div class="signature-trait">The Human Encyclopedia</div>
+                <div class="signature-quote">
+                    Tumhara naam, roll number, aur tumhara
+                    bachpan ka nickname — sab yaad hai!
+                </div>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: Internal mein extra 2 marks dena
                 </div>
             </div>
 
-            <div class="memory-item reveal">
-                <img src="Sidhhi Ma'am.jpg" alt="Sidhhi Ma'am">
-                <div class="memory-overlay">
-                    <span>SIDHHI MA'AM</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">🗄️</div>
+                <div class="signature-tag">THE SQL SORCERESS</div>
+                <div class="signature-name">Siddhi Ma'am</div>
+                <div class="signature-trait">The Query Whisperer</div>
+                <div class="signature-quote">
+                    SELECT * FROM respect
+                    WHERE teacher = 'Siddhi Ma'am';
+                </div>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: 2 second mein complex query solve
                 </div>
             </div>
 
-            <div class="memory-item large reveal">
-                <img src="Tiya Ma'am.jpg" alt="Tiya Ma'am">
-                <div class="memory-overlay">
-                    <span>TIYA MA'AM</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">📖</div>
+                <div class="signature-tag">THE STORYTELLER</div>
+                <div class="signature-name">Tiya Ma'am</div>
+                <div class="signature-trait">Shakespeare's Rival</div>
+                <div class="signature-quote">
+                    "What's in a name?" — Well,
+                    in my class, EVERYTHING matters!
+                </div>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: Novel ko movie jaisi explain karna
                 </div>
             </div>
 
-            <div class="memory-item reveal">
-                <img src="Shiv sir.jpg" alt="Shiv Sir">
-                <div class="memory-overlay">
-                    <span>SHIV SIR</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">🔢</div>
+                <div class="signature-tag">THE MATH MAGICIAN</div>
+                <div class="signature-name">Shiv Sir</div>
+                <div class="signature-trait">The "Beta Ye Toh 10th Ka Hai" Guy</div>
+                <div class="signature-quote">
+                    Beta yeh sawal 10th standard ka hai!
+                    Abhi bhi nahi aata? 🤦‍♂️
+                </div>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: 3 shortcuts for 1 problem
                 </div>
             </div>
 
-            <div class="memory-item reveal">
-                <img src="Danisha Ma'am.jpg" alt="Danisha Ma'am">
-                <div class="memory-overlay">
-                    <span>DANISHA MA'AM</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">🖥️</div>
+                <div class="signature-tag">THE LAB SUPERHERO</div>
+                <div class="signature-name">Danisha Ma'am</div>
+                <div class="signature-trait">The Code Rescuer</div>
+                <div class="signature-quote">
+                    Ek minute... system restart karo,
+                    phir main dekhhti hun! ✨
+                </div>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: Error dekhkar exact line bata dena
                 </div>
             </div>
 
-            <div class="memory-item reveal">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Nidhi Ma'am">
-                <div class="memory-overlay">
-                    <span>NIDHI MA'AM</span>
+            <div class="signature-card reveal">
+                <div class="signature-icon">🤖</div>
+                <div class="signature-tag">THE AI PROPHET</div>
+                <div class="signature-name">Vaman Sir</div>
+                <div class="signature-trait">The Future Fanatic</div>
+                <div class="signature-quote">
+                    AI future hai beta! 5 saal mein
+                    sab kuch AI hi karega...
                 </div>
-            </div>
-
-            <div class="memory-item large reveal">
-                <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&q=80" alt="College Life">
-                <div class="memory-overlay">
-                    <span>BCA WALI YAADEN ❤️</span>
+                <div class="signature-bottom">
+                    <i class="fa-solid fa-star"></i>
+                    Signature Move: Class ko real AI story sunana
                 </div>
             </div>
 
@@ -2360,10 +2521,6 @@ footer span {
         <div class="footer-divider"></div>
 
         <span>
-            🌟 Developed by <strong style="color: #e1bd69;">Anish</strong> 🌟
-        </span>
-        <br>
-        <span style="margin-top: 5px; display: inline-block;">
             A Special Digital Tribute To Our Respected Teachers
         </span>
 
